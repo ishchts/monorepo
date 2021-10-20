@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "start:tenders": "yarn workspace @monorepo/tenders start",
+    "start:gt": "yarn workspace @monorepo/grand-tenders start",
+    "start:ui": "yarn workspace @monorepo/ui-kit storybook"
+  }
+}
