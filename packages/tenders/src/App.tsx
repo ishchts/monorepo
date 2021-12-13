@@ -10,7 +10,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
         <p>
-          tenderss
+          tendersss
         </p>
         <span>
           <span>Learn </span>

@@ -1,44 +1,113 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+###
+Весь jsx это react обьеты, input, select, textarea соответственно тоже
 
-## Available Scripts
+### Компоненты
+Если компонент начинается с маленькой буквы, React принимает его за DOM-тег. Например, <div /> это div-тег из HTML,
+а <Welcome /> это уже наш компонент Welcome, который должен быть в области видимости.
 
-In the project directory, you can run:
+### Именование событий в компоненте
+on[имя события] для компонентов принижающие props. Handle для компонентов отрабатывающие имя.
 
-### `yarn start`
+### Иммутабельность
+Иммутабельность позволяет сохранять предыдущее состояние. Помогает «путешествовать во времени»
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Композиция компонентов
+Композиция помогает избавиться от передачи некоторых пропсов на множество уровней вниз.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Способы бороться с передачей на множество уровней вниз.
+https://ru.reactjs.org/docs/context.html#before-you-use-context
 
-### `yarn test`
+### Инверсия управления
+Cуть паттерна чтобы у общего компонента добавить все необходимые props компонентам и дальше их правильно вложить
+друг в друга, похоже на то как можно просто подключать props через redux.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Этого паттерна достаточно для большинства случаев, когда вам необходимо отделить дочерний компонент
+от его промежуточных родителей
 
-### `yarn build`
+### Обработка событий
+Ещё одно отличие — в React нельзя предотвратить обработчик события по умолчанию, вернув false.
+Нужно явно вызвать preventDefault.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### w3c
+Организация внедряющая стандарты.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Внутри цикла часто нужно передать дополнительный аргумент в обработчик события. Как правильно ?
+https://ru.reactjs.org/docs/handling-events.html#passing-arguments-to-event-handlers
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Философия React
+Названия компонентов часто содержаться в макетах, именовать можно как бо БЭМ в контексте приложения.
 
-### `yarn eject`
+Статическое приложение. Самый лёгкий способ — создать версию, которая использует модель данных и рендерит
+интерфейс, но не предполагает никакой интерактивности. Разделять эти процессы полезно. Написание статического
+приложения требует много печатания и совсем немного мышления. С другой стороны, создание интерактивного приложения
+подразумевает более глубокий мыслительный процесс и лишь долю рутинной печати. Позже мы разберёмся, почему так
+получается.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Состояние
+Состояние часто называют «локальным», «внутренним» или инкапсулированным.
+Оно доступно только для самого компонента и скрыто от других.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Выделение состояния.
+Вот здесь, нашел ответ на вопрос как определить состояние.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Задайте себе три вопроса:
+Передаются ли они от родителя через пропсы? Если так, тогда эти данные не должны храниться в состоянии компонента.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Остаются ли они неизменными со временем? Если так, тогда их тоже не следует хранить в состоянии.
 
-## Learn More
+Можете ли вы вычислить их на основании любых других данных в своём компоненте или пропсов? Если так, тогда это
+тоже не состояние.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+https://ru.reactjs.org/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state
+https://ru.reactjs.org/docs/thinking-in-react.html#step-4-identify-where-your-state-should-live
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Доступность контента 
+a11y (Accessibility) - в веб-разработке — это обеспечение возможности использования сайтов как можно большим числом
+людей, включая тех, чьи способности как-либо ограничены.
+
+Плагин eslint-plugin-jsx-a11y для ESLint выполняет проверку абстрактного синтаксического дерева JSX на
+предмет поиска проблем, связанных с доступностью контента.
+
+### Разделение кода
+Bundle это процесс выявления всех импортированных файлов и обьеденение их в один собранный файл.
+Разделение кода не уменьшит размер bundle, по позволит пользователю при начальной загрузке
+не загружать все приложение целиком.
+
+### Контекст
+Использование контекста подходит когда одни и те же данные приложения должны быть доступны во многих
+компонентах (переводы, темная или светлая тема).
+В других случаях советуется использовать композицию, render props и Инверсия управления.
+
+https://ru.reactjs.org/docs/context.html#examples
+
+### Предохранители
+Это компоненты React, которые отлавливают ошибки JavaScript в любом месте деревьев их дочерних компонентов,
+сохраняют их в журнале ошибок и выводят запасной UI вместо рухнувшего дерева компонентов.
+
+Предохранители отлавливают ошибки при рендеринге, в методах жизненного цикла и конструкторах деревьев компонентов,
+расположенных под ними.
+
+Предохранители не поймают ошибки в: обработчиках событий, асинхронном коде
+(например колбэках из setTimeout или requestAnimationFrame), серверном рендеринге (Server-side rendering)
+самом предохранителе (а не в его дочерних компонентах).
+
+Чтобы отловить ошибку в обработчике событий, пользуйтесь обычной JavaScript-конструкцией try / catch:
+
+Классовый компонент является предохранителем, если он включает хотя бы один из следующих методов
+жизненного цикла: static getDerivedStateFromError() или componentDidCatch().
+Используйте static getDerivedStateFromError() при рендеринге запасного UI в случае отлова ошибки.
+Используйте componentDidCatch() при написании кода для журналирования информации об отловленной ошибке.
+
+https://ru.reactjs.org/docs/error-boundaries.html#live-demo
+
+### Перенаправление рефов
+Полезно когда компоненту получить ref и передать его дочернему. Реализовать можно с помощью компонента
+`React.forwardRef`. Так же можно сделать через HOC, при этом нужно не забыть добавить имя 
+компоненту (displayName)
+
+### HOC
+Самый простой пример это функция connect, witRouter. HOC желательно присваивать displayName.
+Он также может принимать функцию с конфигурацией.
+
+### JSX в деталях
+null, undefined, false, true игнорируются, ноль отображается.
