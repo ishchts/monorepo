@@ -111,3 +111,36 @@ https://ru.reactjs.org/docs/error-boundaries.html#live-demo
 
 ### JSX в деталях
 null, undefined, false, true игнорируются, ноль отображается.
+
+
+### Оптимизация производительности
+Понял что одна из причин почему не стоит мутировать состояние в реакт это из за
+компорента переписовки он сравнивает объекты по ссылке при мутировании ссылка не поменяется
+и могут возникнуть проблемы например с рендером.
+
+React Profiler - инструмент разработчика анализа производительности в режиме разработки.
+Виртуализация длинных списков, react-window и react-virtualized — это популярные библиотеки
+для оконного доступа. Использование React.PureComponent или React.memo
+
+```js
+function MyComponent(props) {
+  /* render using props */
+}
+function areEqual(prevProps, nextProps) {
+  /*
+  return true if passing nextProps to render would return
+  the same result as passing prevProps to render,
+  otherwise return false
+  */
+}
+export default React.memo(MyComponent, areEqual);
+```
+
+подойдет для собеса
+https://ru.reactjs.org/docs/optimizing-performance.html#examples
+а это в codestyle https://immerjs.github.io/immer/example-setstate
+
+### API для работы с Profiler
+https://ru.reactjs.org/docs/profiler.html#onrender-callback
+
+https://ru.reactjs.org/docs/refs-and-the-dom.html
